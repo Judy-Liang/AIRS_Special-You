@@ -18,7 +18,7 @@ MODEL:
         [[30, 61], [62, 45], [42, 119]],
         [[10, 13], [16, 30], [33, 23]],
       ]
-    CLASSES: 80
+    CLASSES: 1 #80
     IN_FEATURES: ["dark3", "dark4", "dark5"]
     CONF_THRESHOLD: 0.2
     NMS_THRESHOLD: 0.1
@@ -31,7 +31,7 @@ DATASETS:
   TEST: ("coco_2017_val",)
 
 SOLVER:
-  IMS_PER_BATCH: 32
+  IMS_PER_BATCH: 16 #32
   BASE_LR: 0.01
   WARMUP_ITERS: 1500
   STEPS: (60000, 80000)

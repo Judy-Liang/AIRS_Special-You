@@ -68,7 +68,7 @@ def add_yolo_config(cfg):
         [[10, 13], [16, 30], [33, 23]],
     ]
     _C.MODEL.YOLO.ANCHOR_MASK = []
-    _C.MODEL.YOLO.CLASSES = 80
+    _C.MODEL.YOLO.CLASSES = 1 #80
     _C.MODEL.YOLO.MAX_BOXES_NUM = 100
     _C.MODEL.YOLO.IN_FEATURES = ["dark3", "dark4", "dark5"]
     _C.MODEL.YOLO.CONF_THRESHOLD = 0.01
@@ -163,7 +163,7 @@ def add_yolo_config(cfg):
     _C.MODEL.SOLOV2.TYPE_DCN = "DCN"
     _C.MODEL.SOLOV2.NUM_GRIDS = [40, 36, 24, 16, 12]
     # Number of foreground classes.
-    _C.MODEL.SOLOV2.NUM_CLASSES = 80
+    _C.MODEL.SOLOV2.NUM_CLASSES = 1 #80
     _C.MODEL.SOLOV2.NUM_KERNELS = 256
     _C.MODEL.SOLOV2.NORM = "GN"
     _C.MODEL.SOLOV2.USE_COORD_CONV = True
@@ -198,7 +198,7 @@ def add_yolo_config(cfg):
 
     # DETR config
     cfg.MODEL.DETR = CN()
-    cfg.MODEL.DETR.NUM_CLASSES = 80
+    cfg.MODEL.DETR.NUM_CLASSES = 1 #80
     cfg.MODEL.BACKBONE.SIMPLE = False
     cfg.MODEL.BACKBONE.STRIDE = 1
     cfg.MODEL.BACKBONE.CHANNEL = 0

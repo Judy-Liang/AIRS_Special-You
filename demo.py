@@ -3,6 +3,8 @@ import multiprocessing as mp
 import pathlib
 import random
 import time
+import os
+import glob
 
 import cv2
 import detectron2.data.transforms as T
@@ -94,6 +96,8 @@ def get_parser():
         help="A list of space separated input images; "
         "or a single glob pattern such as 'directory/*.jpg'",
     )
+    #video自加line98
+    parser.add_argument("--video-input", help="Path to video file.")
     parser.add_argument(
         "-o",
         "--output",
@@ -204,7 +208,55 @@ if __name__ == "__main__":
     conf_thresh = cfg.MODEL.YOLO.CONF_THRESHOLD
     print("confidence thresh: ", conf_thresh)
 
-    iter = ImageSourceIter(args.input)
+    if args.input:
+        print("1")
+        if os.path.isdir(args.input):
+            imgs = glob.glob(os.path.join(args.input, '*.jpg'))
+            imgs = sorted(imgs)
+            for path in imgs:
+                # use PIL, to be consistent with evaluation
+                img = cv2.imread(path)
+                print('ori img shape: ', img.shape)
+                res = predictor(img)
+                res = vis_res_fast(res, img, metadata, colors)
+                # cv2.imshow('frame', res)
+                cv2.imshow('frame', res)
+                if cv2.waitKey(0) & 0xFF == ord('q'):
+                    break
+        else:
+            img = cv2.imread(args.input)
+            res = predictor(img)
+            res = vis_res_fast(res, img, metadata, colors)
+            # cv2.imshow('frame', res)
+            cv2.imshow('frame', res)
+            cv2.waitKey(0)
+    elif args.webcam:
+        print('Not supported.')
+    elif args.video_input:
+        video = cv2.VideoCapture(args.video_input)
+        width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        frames_per_second = video.get(cv2.CAP_PROP_FPS)
+        num_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+        basename = os.path.basename(args.video_input)
+        
+        n = 1
+        while(video.isOpened()):
+            
+            ret, frame = video.read()
+            # frame = cv2.resize(frame, (640, 640))
+            res = predictor(frame)
+            #res = vis_res_fast(res, frame, metadata, colors, conf_thresh)
+            res = vis_res_fast(res, frame, class_names, colors, conf_thresh)
+            # cv2.imshow('frame', res)
+            #cv2.imshow('frame', res)
+            
+            cv2.imwrite(os.path.join('video_results/', str(n)+'frame.jpg') ,res) #for jpg
+            n += 1
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    '''iter = ImageSourceIter(args.input)
     if args.wandb_project is not None:
         from wandadb.wandb_logger import WandbInferenceLogger
 
@@ -236,6 +288,7 @@ if __name__ == "__main__":
         else:
             out_path = "frame"
         cv2.imshow(out_path, res)
+        # cv2.imwrite("test.jpg",res) #for jpg
 
         if iter.video_mode:
             cv2.waitKey(1)
@@ -243,4 +296,6 @@ if __name__ == "__main__":
             if cv2.waitKey(0) & 0xFF == ord("q"):
                 continue
     if inference_logger:
-        inference_logger.finish_run()
+        inference_logger.finish_run()'''
+
+

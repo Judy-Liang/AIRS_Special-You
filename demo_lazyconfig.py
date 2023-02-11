@@ -51,6 +51,7 @@ class DefaultPredictor:
 
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(cfg.train.init_checkpoint)
+        #checkpointer.load(cfg.MODEL.WEIGHTS)
 
         self.aug = T.ResizeShortestEdge(short_edge_length=800, max_size=1333)
         # self.aug = T.ResizeShortestEdge(short_edge_length=2000, max_size=3333)
@@ -72,7 +73,7 @@ class DefaultPredictor:
             c = time.time() - tic
             print('cost: {}, fps: {}'.format(c, 1/c))
             return predictions
-q
+
 
 def setup_cfg(cfg, args):
     # load config from file and command-line arguments
@@ -105,7 +106,7 @@ def get_parser():
                         help="Take inputs from webcam.")
     parser.add_argument("--video-input", help="Path to video file.")
     parser.add_argument(
-        "--input",
+        "--input", 
         # nargs="+",
         help="A list of space separated input images; "
         "or a single glob pattern such as 'directory/*.jpg'",

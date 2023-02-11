@@ -17,7 +17,7 @@ from detectron2.engine import (
     launch,
 )
 from detectron2.data.datasets.coco import load_coco_json, register_coco_instances
-from train_det import Trainer, setup
+from train_inseg import Trainer, setup #train_det
 
 
 def register_custom_datasets():
@@ -71,6 +71,19 @@ def register_custom_datasets():
 
     register_coco_instances("voc_train", {}, TRAIN_JSON, TRAIN_PATH)
     register_coco_instances("voc_val", {}, VAL_JSON, VAL_PATH)
+
+
+    # person dataset
+    DATASET_ROOT = "./datasets/person2/"
+    img_dir = "./datasets/person2/"
+    ANN_ROOT = os.path.join(DATASET_ROOT, "annotations")
+    TRAIN_PATH = os.path.join(DATASET_ROOT, "train2017")
+    VAL_PATH = os.path.join(DATASET_ROOT, "val2017")
+    TRAIN_JSON = os.path.join(ANN_ROOT, "instances_train2017.json")
+    VAL_JSON = os.path.join(ANN_ROOT, "instances_val2017.json")
+    register_coco_instances("person_train", {}, TRAIN_JSON, TRAIN_PATH) #mask_train
+    register_coco_instances("person_val", {}, VAL_JSON, VAL_PATH) #mask_val
+
 
     # ADD YOUR DATASET CONFIG HERE
     # dataset names registered must be unique, different than any of above

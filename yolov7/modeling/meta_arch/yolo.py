@@ -447,7 +447,8 @@ class YOLOHead(nn.Module):
                                          self.ref_anchors.type_as(truth_box.cpu()), xyxy=False)
             best_n_all = np.argmax(anchor_ious_all, axis=1)
             best_n = best_n_all % 3
-            best_n_mask = ((best_n_all // 3) == self.level)
+            #best_n_mask = ((best_n_all // 3)  == self.level)
+            best_n_mask = ((torch.div(best_n_all, 3, rounding_mode='trunc'))  == self.level)
 
             truth_box[:n, 0] = gx_all[b, :n]
             truth_box[:n, 1] = gy_all[b, :n]

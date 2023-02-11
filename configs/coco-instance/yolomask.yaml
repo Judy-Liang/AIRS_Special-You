@@ -9,7 +9,7 @@ MODEL:
     WEIGHTS: ""
     DEPTH_WISE: False
     OUT_FEATURES: ["dark2", "dark3", "dark4", "dark5"]
-
+    
   YOLO:
     ANCHORS:
       # yolomask anchors slightly different than YOLOv7

@@ -15,7 +15,7 @@ MODEL:
     OUT_FEATURES: ["dark3", "dark4", "dark5"]
 
   YOLO:
-    CLASSES: 80
+    CLASSES: 1 #80
     IN_FEATURES: ["dark3", "dark4", "dark5"]
     CONF_THRESHOLD: 0.001
     NMS_THRESHOLD: 0.65
@@ -27,9 +27,9 @@ MODEL:
       LAMBDA_IOU: 1.5
 
 DATASETS:
-  TRAIN: ("coco_2017_train",)
+  TRAIN: ("person_train",)
   # TEST: ("coco_2014_val_mini",)
-  TEST: ("coco_2017_val",)
+  TEST: ("person_val",)
 
 INPUT:
   # FORMAT: "RGB" # using BGR default
@@ -66,7 +66,7 @@ SOLVER:
   # enable fp16 training
   AMP:
     ENABLED: true
-  IMS_PER_BATCH: 112
+  IMS_PER_BATCH: 32 #112
   BASE_LR: 0.027
   STEPS: (60000, 80000)
   WARMUP_FACTOR: 0.00033333

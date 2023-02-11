@@ -21,10 +21,12 @@ from yolov7.data.dataset_mapper import MyDatasetMapper2, MyDatasetMapper
 from yolov7.utils.allreduce_norm import all_reduce_norm
 
 
+
 """
 This using for train instance segmentation!
 """
 
+#os.environ["CUDA_VISIBLE_DEVICES"] = '7'
 
 class Trainer(DefaultTrainer):
     @classmethod
@@ -57,6 +59,7 @@ def setup(args):
 
 
 def main(args):
+   
     cfg = setup(args)
 
     if args.eval_only:
