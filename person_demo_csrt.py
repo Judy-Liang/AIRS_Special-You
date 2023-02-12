@@ -11,7 +11,7 @@ import detectron2.data.transforms as T
 import torch
 from alfred.utils.file_io import ImageSourceIter
 from alfred.vis.image.det import visualize_det_cv2_part
-from alfred.vis.image.mask import vis_bitmasks_with_classes
+from yolov7.utils.mask import vis_bitmasks_with_classes
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
 from detectron2.data.catalog import MetadataCatalog
@@ -234,7 +234,7 @@ def vis_res_fast(res, img, class_names, colors, thresh, n):
         # img = vis_bitmasks_with_classes(img, clss, bit_masks)
         # img = vis_bitmasks_with_classes(img, clss, bit_masks, force_colors=colors, mask_border_color=(255, 255, 255), thickness=2)
         img = vis_bitmasks_with_classes(
-            img, clss, bit_masks, force_colors=None, mask_border_color = (0, 255, 0), draw_contours=False, alpha=0.8, track_id = track_id
+            img, clss, bit_masks, force_colors=None, mask_border_color = (0, 255, 0), draw_contours=False, alpha=0.8, yolov_id = track_id
         ) #revise the masks
         
         '''if isinstance(bit_masks, torch.Tensor):

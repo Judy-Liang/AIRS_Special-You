@@ -11,7 +11,7 @@ import detectron2.data.transforms as T
 import torch
 from alfred.utils.file_io import ImageSourceIter
 from alfred.vis.image.det import visualize_det_cv2_part
-from alfred.vis.image.mask import vis_bitmasks_with_classes
+from yolov7.utils.mask import vis_bitmasks_with_classes
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
 from detectron2.data.catalog import MetadataCatalog

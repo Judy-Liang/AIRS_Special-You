@@ -11,7 +11,7 @@ import detectron2.data.transforms as T
 import torch
 from alfred.utils.file_io import ImageSourceIter
 from alfred.vis.image.det import visualize_det_cv2_part
-from alfred.vis.image.mask import vis_bitmasks_with_classes
+from yolov7.utils.mask import vis_bitmasks_with_classes
 from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import get_cfg
 from detectron2.data.catalog import MetadataCatalog
@@ -356,7 +356,7 @@ if __name__ == "__main__":
                 print('ori img shape: ', img.shape)
                 res = predictor(img)
                 #res["instances"]
-                res = vis_res_fast(res, img, metadata, colors, fg)
+                res = vis_res_fast(res, img, metadata, colors)
                 # test2
                 '''blur = cv2.blur(img.bit_masks,(15,15),0)
                 out = img.copy()
@@ -371,7 +371,7 @@ if __name__ == "__main__":
             img = cv2.imread(args.input)
             res = predictor(img)
             #
-            res = vis_res_fast(res, img, metadata, colors, fg)
+            res = vis_res_fast(res, img, metadata, colors)
             # cv2.imshow('frame', res)
             cv2.imshow('frame', res)
             cv2.waitKey(0)
